@@ -1,0 +1,14 @@
+# Env
+venv/
+env/
+.env
+
+#py caches 
+__pycache__/
+*.pyc
+
+#OS files
+.DS_Store
+
+#YOLO/pytorch files
+*.pt
