@@ -23,19 +23,22 @@ def build_ecological_graph(tree_coords, jump_radius=15.0):
                 
     return G
 
+import networkx as nx
+
 def get_network_health(G):
+    # Get basic metrics
+    components = nx.number_connected_components(G)
+    largest_cc = len(max(nx.connected_components(G), key=len)) if len(G.nodes) > 0 else 0
     
-    if len(G.nodes) == 0:
-        return 0, 0
+    # Calculate Algebraic Connectivity (The Fiedler Value)
+    if len(G.nodes) > 0 and components == 1:
+        # Only works if the graph is fully connected
+        alg_conn = nx.algebraic_connectivity(G)
+    else:
+        # If the graph is already broken, connectivity is mathematically 0
+        alg_conn = 0.0
         
-    
-    connected_components = nx.number_connected_components(G)
-    
-    
-    largest_cc = max(nx.connected_components(G), key=len)
-    largest_habitat_size = len(largest_cc)
-    
-    return connected_components, largest_habitat_size
+    return components, largest_cc, alg_conn 
 
 def remove_tree(G, node_id):
     

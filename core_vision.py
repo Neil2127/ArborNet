@@ -31,7 +31,7 @@ def get_real_trees(image_path, grid_size=100):
     # -------------------------------------------------------------------------
     # THE FIX: Changed from == 0 to < 20. If YOLO finds a pathetic amount of trees, bypass it.
     if len(results) == 0 or len(results[0].boxes) < 20:
-        print("⚠️ YOLO found too few trees. Engaging OpenCV heuristic fallback...")
+        print(" YOLO found too few trees. Engaging OpenCV heuristic fallback...")
         
         img = cv2.imread(image_path)
         if img is None:
